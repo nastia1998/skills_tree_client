@@ -30,6 +30,10 @@ class RegisterPage extends Component {
   state = {
     email: "",
     password: "",
+    confpassword: "",
+    firstname: "",
+    lastname: "",
+    middlename: "",
     token: "",
     error: false
   };
@@ -38,7 +42,10 @@ class RegisterPage extends Component {
     e.preventDefault();
     const body = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      firstName: this.state.firstname,
+      lastName: this.state.lastname,
+      middleName: this.state.middlename
     };
     console.log("body", body);
 
@@ -52,14 +59,26 @@ class RegisterPage extends Component {
   };
 
   onChange = e => {
-    console.log("target", e.target.type);
-    switch (e.target.type) {
-      case "text":
+    console.log("target", e.target.name);
+    switch (e.target.name) {
+      case "email":
         this.setState({ email: e.target.value });
         break;
 
       case "password":
         this.setState({ password: e.target.value });
+        break;
+      case "confpassword":
+        this.setState({ confpassword: e.target.value });
+        break;
+      case "firstname":
+        this.setState({ firstname: e.target.value });
+        break;
+      case "lastname":
+        this.setState({ lastname: e.target.value });
+        break;
+      case "middlename":
+        this.setState({ middlename: e.target.value });
         break;
 
       default:
@@ -69,7 +88,7 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div style={styles.container}>
           <Avatar style={styles.avatar}>
@@ -79,51 +98,87 @@ class RegisterPage extends Component {
             Register
           </Typography>
           <form style={styles.form} onSubmit={this.handleSubmit} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoFocus
-              autoComplete="email"
-              onChange={this.onChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={this.onChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="confpassword"
-              label="Confirm password"
-              type="confpassword"
-              id="confpassword"
-              autoComplete="current-password"
-              onChange={this.onChange}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              style={styles.submit}
-            >
-              Register
-            </Button>
+            <Grid container spacing={2}>
+              <Grid item xs={7}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  name="email"
+                  autoFocus
+                  autoComplete="email"
+                  onChange={this.onChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={this.onChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="confpassword"
+                  label="Confirm password"
+                  type="password"
+                  id="confpassword"
+                  autoComplete="current-password"
+                  onChange={this.onChange}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  name="firstname"
+                  label="First name"
+                  type="firstname"
+                  id="firstname"
+                  onChange={this.onChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  name="lastname"
+                  label="Last name"
+                  type="lastname"
+                  id="lastname"
+                  onChange={this.onChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  name="middlename"
+                  label="Middle name"
+                  type="middlename"
+                  id="middlename"
+                  onChange={this.onChange}
+                />
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                style={styles.submit}
+              >
+                Register
+              </Button>
+            </Grid>
           </form>
         </div>
         <Box mt={8}>

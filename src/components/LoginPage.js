@@ -47,12 +47,11 @@ class LoginPage extends Component {
         "http://localhost:3000/api/v1/users/login",
         body
       );
+      console.log("token", data.token);
       if (data.token) {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("userId", data.id);
         localStorage.setItem("loggedIn", "loggedIn");
-        localStorage.setItem("email", data.email);
-        this.props.history.push("/skills");
+        this.props.history.push("/profile");
       } else {
         this.setState({ error: true });
       }
