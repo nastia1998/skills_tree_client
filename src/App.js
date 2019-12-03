@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import LoginPage from "./components/LoginPage";
+import RegisterPage from "./components/RegisterPage";
 import SkillsPage from "./components/SkillsPage";
 import NavBar from "./components/NavBar";
 
@@ -21,7 +22,7 @@ export default function App() {
         <Router>
           <NavBar {...{ loggedIn }} />
           <Route name="login" exact path="/login" component={LoginPage} />
-          <Route name="register" path="/register" />
+          <Route name="register" path="/register" component={RegisterPage} />
           <Route name="skills" path="/skills" component={SkillsPage} />
         </Router>
       </div>

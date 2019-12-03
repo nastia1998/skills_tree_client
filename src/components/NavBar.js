@@ -30,7 +30,7 @@ class NavBar extends Component {
           </Typography>
           {this.props.loggedIn ? (
             <Typography variant="h6" style={styles.menuButton}>
-              <NavLink to={InOut}>Sign in</NavLink>
+              <NavLink to={InOut}>Log in</NavLink>
             </Typography>
           ) : (
             <Typography variant="h6" style={styles.menuButton}>

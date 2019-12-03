@@ -28,7 +28,7 @@ function Copyright() {
 
 class LoginPage extends Component {
   state = {
-    login: "",
+    email: "",
     password: "",
     token: "",
     error: false
@@ -36,13 +36,18 @@ class LoginPage extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
+
+    const body = {
+      email: this.state.email,
+      password: this.state.password
+    };
     this.props.history.push("/skills");
   };
 
   onChange = e => {
     switch (e.target.type) {
       case "text":
-        this.setState({ login: e.target.value });
+        this.setState({ email: e.target.value });
         break;
 
       case "password":
@@ -63,7 +68,7 @@ class LoginPage extends Component {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Log in
           </Typography>
           <form style={styles.form} onSubmit={this.handleSubmit} noValidate>
             <TextField
@@ -71,9 +76,9 @@ class LoginPage extends Component {
               margin="normal"
               required
               fullWidth
-              id="login"
-              label="Login"
-              name="login"
+              id="email"
+              label="Email"
+              name="email"
               autoFocus
               onChange={this.onChange}
             />
@@ -96,11 +101,13 @@ class LoginPage extends Component {
               color="primary"
               style={styles.submit}
             >
-              Sign In
+              Log in
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/register">{"Don't have an account? Sign Up"}</Link>
+                <Link href="/register">
+                  {"Don't have an account? Register!"}
+                </Link>
               </Grid>
             </Grid>
           </form>
