@@ -11,6 +11,7 @@ import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import SkillsPage from "./components/SkillsPage";
 import NavBar from "./components/NavBar";
+import ProfilePage from "./components/ProfilePage";
 
 import "./index";
 
@@ -24,6 +25,7 @@ export default function App() {
           <Route name="login" exact path="/login" component={LoginPage} />
           <Route name="register" path="/register" component={RegisterPage} />
           <Route name="skills" path="/skills" component={SkillsPage} />
+          <Route name="profile" path="/profile" component={ProfilePage} />
         </Router>
       </div>
     </HashRouter>

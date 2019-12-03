@@ -41,7 +41,25 @@ class LoginPage extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    this.props.history.push("/skills");
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3000/api/v1/users/login",
+        body
+      );
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", data.id);
+        localStorage.setItem("loggedIn", "loggedIn");
+        localStorage.setItem("email", data.email);
+        this.props.history.push("/skills");
+      } else {
+        this.setState({ error: true });
+      }
+    } catch (e) {
+      console.log(e);
+      alert("Authorization failed. Check your input values!");
+    }
   };
 
   onChange = e => {
