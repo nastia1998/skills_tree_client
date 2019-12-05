@@ -25,5 +25,12 @@ export default {
   },
   input: {
     display: "none"
+  },
+  list: {
+    width: "100%",
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+    maxHeight: 200,
+    overflow: "auto"
   }
 };

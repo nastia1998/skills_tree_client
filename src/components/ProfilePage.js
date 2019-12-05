@@ -6,6 +6,7 @@ import styles from "../styles/ProfilePage.css";
 import UserInfo from "./UserInfo";
 import SkillQueue from "./SkillQueue";
 import CourseInfo from "./CourseInfo";
+import SkillsList from "./SkillsList";
 
 import axios from "axios";
 
@@ -40,11 +41,14 @@ class ProfilePage extends Component {
       <div style={styles.root}>
         <Grid container spacing={3}>
           <Grid item xs={4}>
-            <UserInfo
-              firstName={this.state.firstName}
-              lastName={this.state.lastName}
-              middleName={this.state.middleName}
-            />
+            <Paper style={styles.paper}>
+              <UserInfo
+                firstName={this.state.firstName}
+                lastName={this.state.lastName}
+                middleName={this.state.middleName}
+              />
+              <SkillsList />
+            </Paper>
           </Grid>
           <Grid item xs={4}>
             <SkillQueue />

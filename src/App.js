@@ -23,9 +23,14 @@ export default function App() {
         <Router>
           <NavBar {...{ loggedIn }} />
           <Route name="login" exact path="/login" component={LoginPage} />
-          <Route name="register" path="/register" component={RegisterPage} />
-          <Route name="skills" path="/skills" component={SkillsPage} />
-          <Route name="profile" path="/profile" component={ProfilePage} />
+          <Route
+            name="register"
+            exact
+            path="/register"
+            component={RegisterPage}
+          />
+          <Route name="skills" exact path="/skills" component={SkillsPage} />
+          <Route name="profile" exact path="/profile" component={ProfilePage} />
         </Router>
       </div>
     </HashRouter>

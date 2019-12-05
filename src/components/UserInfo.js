@@ -20,51 +20,51 @@ class UserInfo extends Component {
   };
   render() {
     return (
-      <Paper style={styles.paper}>
-        <Grid container spacing={2}>
-          <Grid item>
-            <img style={styles.img} src={this.state.image} />
-            <input
-              accept="image/*"
-              style={styles.input}
-              id="icon-button-file"
-              onChange={this.onImageChange}
-              type="file"
-            />
-            <label htmlFor="icon-button-file">
-              <IconButton
-                color="primary"
-                aria-label="upload picture"
-                component="span"
-              >
-                <PhotoCamera />
-              </IconButton>
-            </label>
+      // <Paper style={styles.paper}>
+      <Grid container spacing={2}>
+        <Grid item>
+          <img style={styles.img} src={this.state.image} />
+          <input
+            accept="image/*"
+            style={styles.input}
+            id="icon-button-file"
+            onChange={this.onImageChange}
+            type="file"
+          />
+          <label htmlFor="icon-button-file">
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+            >
+              <PhotoCamera />
+            </IconButton>
+          </label>
+        </Grid>
+        <Grid item xs={12} sm container>
+          <Grid item xs container direction="column" spacing={2}>
+            <Grid item xs>
+              <Typography gutterBottom variant="subtitle1">
+                {this.props.firstName || "First name"}{" "}
+                {this.props.lastName || "Last name"}{" "}
+                {this.props.middleName || "Middle name"}
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                Full resolution 1920x1080 • JPEG
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                ID: 1030114
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  {this.props.firstName || "First name"}{" "}
-                  {this.props.lastName || "Last name"}{" "}
-                  {this.props.middleName || "Middle name"}
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  Full resolution 1920x1080 • JPEG
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  ID: 1030114
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <IconButton color="primary">
-                <EditIcon />
-              </IconButton>
-            </Grid>
+          <Grid item>
+            <IconButton color="primary">
+              <EditIcon />
+            </IconButton>
           </Grid>
         </Grid>
-      </Paper>
+      </Grid>
+      // </Paper>
     );
   }
 }
