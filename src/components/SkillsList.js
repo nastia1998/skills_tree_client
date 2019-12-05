@@ -27,7 +27,7 @@ class SkillsList extends Component {
           return (
             <ListItem key={item.id}>
               {item.name}
-              <FullScreenDialog />
+              <FullScreenDialog skillId={item.id} />
               {/* <Button key={item.id} onClick={this.chooseMentor(item.id)}>
                 Submit
               </Button> */}
