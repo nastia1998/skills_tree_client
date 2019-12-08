@@ -22,18 +22,58 @@ class ExpertsList extends Component {
       console.log(e);
     }
   }
+  handleAddGoal = async (skillId, expert_id) => {
+    //
+    const user = { user_id: localStorage.getItem("userId") };
+    console.log(8898, localStorage.getItem("userId"));
+    console.log(11111, user);
+    console.log(222, skillId);
+    console.log(333, expert_id);
+    //console.log(8787, event.target);
+    const { data } = await axios.post(
+      `http://localhost:3000/api/v1/skills/${this.props.skillId}/experts/${expert_id}`,
+      user
+    );
+  };
   render() {
     return (
       <List>
-        {this.state.expertsList.map(item => {
-          return (
-            <ListItem key={item.expert.id} button>
-              <ListItemText>
-                {item.expert.firstName} {item.expert.email}
+        {this.state.expertsList
+          .filter(e => e.User.id != localStorage.getItem("userId"))
+          .map(item => {
+            return (
+              <ListItem
+                key={item.User.id}
+                button
+                onClick={() =>
+                  this.handleAddGoal(this.props.skillId, item.User.id)
+                }
+              >
+                <ListItemText
+                //(this.props.skillId, item.User.id)}
+                >
+                  {item.User.firstName} {item.User.email}
+                </ListItemText>
+              </ListItem>
+            );
+          })}
+        {/* {this.state.expertsList
+          .filter(e => e.User.id != localStorage.getItem("userId"))
+          .map(item => (
+            <ListItem
+              key={item.User.id}
+              button
+              onClick={() =>
+                this.handleAddGoal(this.props.skillId, item.User.id)
+              }
+            >
+              <ListItemText
+              //(this.props.skillId, item.User.id)}
+              >
+                {item.User.firstName} {item.User.email}
               </ListItemText>
             </ListItem>
-          );
-        })}
+          ))} */}
       </List>
     );
   }

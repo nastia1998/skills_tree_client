@@ -51,7 +51,9 @@ class ProfilePage extends Component {
             </Paper>
           </Grid>
           <Grid item xs={4}>
-            <SkillQueue />
+            <Paper style={styles.paper}>
+              <SkillQueue />
+            </Paper>
           </Grid>
           <Grid item xs={4}>
             <CourseInfo />

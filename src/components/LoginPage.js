@@ -43,6 +43,7 @@ class LoginPage extends Component {
     };
 
     try {
+      console.log(33435, body);
       const { data } = await axios.post(
         "http://localhost:3000/api/v1/users/login",
         body
@@ -51,6 +52,8 @@ class LoginPage extends Component {
       if (data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("loggedIn", "loggedIn");
+        localStorage.setItem("userId", data.user.id);
+        console.log(4444, localStorage.getItem("userId"));
         this.props.history.push("/profile");
       } else {
         this.setState({ error: true });
