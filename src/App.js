@@ -12,6 +12,8 @@ import RegisterPage from "./components/RegisterPage";
 import SkillsPage from "./components/SkillsPage";
 import NavBar from "./components/NavBar";
 import ProfilePage from "./components/ProfilePage";
+// import RequestsPage from "./components/RequestsPage";
+import RequestsPull from "./components/RequestsPull"
 
 import "./index";
 
@@ -31,6 +33,18 @@ export default function App() {
           />
           <Route name="skills" exact path="/skills" component={SkillsPage} />
           <Route name="profile" exact path="/profile" component={ProfilePage} />
+          {/* <Route
+            name="requests"
+            exact
+            path="/requests"
+            component={RequestsPage}
+          /> */}
+                    <Route
+            name="requests"
+            exact
+            path="/requests"
+            component={RequestsPull}
+          />
         </Router>
       </div>
     </HashRouter>

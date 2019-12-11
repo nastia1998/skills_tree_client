@@ -12,7 +12,7 @@ class SkillsList extends Component {
   async componentDidMount() {
     try {
       const { data } = await axios.get(`http://localhost:3000/api/v1/skills`);
-      this.setState({ skillsList: data }, () => {
+      this.setState({ skillsList: data.rows }, () => {
         console.log(this.state.skillsList);
       });
     } catch (e) {
@@ -23,17 +23,19 @@ class SkillsList extends Component {
   render() {
     return (
       <List style={styles.list}>
-        {this.state.skillsList.map(item => {
-          return (
-            <ListItem key={item.id}>
-              {item.name}
-              <FullScreenDialog skillId={item.id} />
-              {/* <Button key={item.id} onClick={this.chooseMentor(item.id)}>
+        {this.state.skillsList
+          .filter(e => e.expert_id != localStorage.getItem("userId"))
+          .map(item => {
+            return (
+              <ListItem key={item.id}>
+                {item.Skill.name}
+                <FullScreenDialog skillId={item.id} />
+                {/* <Button key={item.id} onClick={this.chooseMentor(item.id)}>
                 Submit
               </Button> */}
-            </ListItem>
-          );
-        })}
+              </ListItem>
+            );
+          })}
       </List>
     );
   }

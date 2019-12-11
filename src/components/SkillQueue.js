@@ -31,6 +31,7 @@ class SkillQueue extends Component {
   render() {
     return (
       <List>
+        {console.log(555, this.state.skillsQueue)}
         {this.state.skillsQueue.map(item => {
           return (
             <ListItem key={item.id} button>

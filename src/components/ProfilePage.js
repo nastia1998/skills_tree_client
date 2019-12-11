@@ -14,7 +14,8 @@ class ProfilePage extends Component {
   state = {
     firstName: "",
     lastName: "",
-    middleName: ""
+    middleName: "",
+    email: ""
   };
   async componentDidMount() {
     try {
@@ -29,7 +30,8 @@ class ProfilePage extends Component {
       this.setState({
         firstName: data.firstName,
         lastName: data.lastName,
-        middleName: data.middleName
+        middleName: data.middleName,
+        email: data.email
       });
     } catch (e) {
       localStorage.removeItem("token");
@@ -40,24 +42,25 @@ class ProfilePage extends Component {
     return (
       <div style={styles.root}>
         <Grid container spacing={3}>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <Paper style={styles.paper}>
               <UserInfo
                 firstName={this.state.firstName}
                 lastName={this.state.lastName}
                 middleName={this.state.middleName}
+                email={this.state.email}
               />
               <SkillsList />
             </Paper>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <Paper style={styles.paper}>
               <SkillQueue />
             </Paper>
           </Grid>
-          <Grid item xs={4}>
+          {/* <Grid item xs={4}>
             <CourseInfo />
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
     );

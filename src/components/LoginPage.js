@@ -43,7 +43,6 @@ class LoginPage extends Component {
     };
 
     try {
-      console.log(33435, body);
       const { data } = await axios.post(
         "http://localhost:3000/api/v1/users/login",
         body

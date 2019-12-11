@@ -28,6 +28,9 @@ class NavBar extends Component {
           <Typography variant="h6" style={styles.title}>
             Skills Tree
           </Typography>
+          <Typography variant="h6" style={styles.menuButton}>
+            <NavLink to="/requests">Requests</NavLink>
+          </Typography>
           {this.props.loggedIn ? (
             <Typography variant="h6" style={styles.menuButton}>
               <NavLink to={InOut}>Log in</NavLink>
