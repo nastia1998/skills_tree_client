@@ -16,10 +16,16 @@ class RequestsPull extends Component {
       const { data } = await axios.get(
         `http://localhost:3000/api/v1/users/${localStorage.getItem(
           "userId"
-        )}/requests`
+        )}/requests`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
       );
       if (data.rows) {
         this.setState({ requestsList: data.rows });
+        console.log(2222, this.state.requestsList);
       }
     } catch (error) {
       console.log(error.response);
@@ -33,7 +39,12 @@ class RequestsPull extends Component {
       const { data } = await axios.get(
         `http://localhost:3000/api/v1/users/${localStorage.getItem(
           "userId"
-        )}/students/${studentId}`
+        )}/students/${studentId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
       );
       if (data.rows) {
         this.setState({ studentInfo: data.rows });
@@ -41,7 +52,6 @@ class RequestsPull extends Component {
     } catch (error) {
       console.log(error.response);
     }
-    //console.log(this.state.requestsList);
   };
 
   acceptRequest = async (requestId, e) => {
@@ -55,8 +65,15 @@ class RequestsPull extends Component {
         `http://localhost:3000/api/v1/users/${localStorage.getItem(
           "userId"
         )}/requests`,
-        body
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
       );
+
+      this.setState({ studentInfo: [], requestsList: [] });
     } catch (error) {
       console.log(error.response);
     }
@@ -69,45 +86,46 @@ class RequestsPull extends Component {
           <Grid item xs={4}>
             <Paper style={styles.paper}>
               <List>
-                {this.state.requestsList.map(item => {
-                  return (
-                    <ListItem
-                      key={item.id}
-                      button
-                      // onClick={e =>
-                      //   this.showStudentInfo(e, item.Review.User.id)
-                      // }
-                      onMouseOver={e => {
-                        this.showStudentInfo(item.Review.User.id, e);
-                      }}
-                    >
-                      Student Email: {item.Review.User.email} Skill:{" "}
-                      {item.Skill.name}
-                    </ListItem>
-                  );
-                })}
+                {this.state.requestsList
+                  .filter(e => e.is_approved_request == false)
+                  .map(item => {
+                    return (
+                      <ListItem
+                        key={item.id}
+                        button
+                        onMouseOver={e => {
+                          this.showStudentInfo(item.Review.User.id, e);
+                        }}
+                      >
+                        Student Email: {item.Review.User.email} Skill:{" "}
+                        {item.Skill.name}
+                      </ListItem>
+                    );
+                  })}
               </List>
             </Paper>
           </Grid>
           <Grid item xs={8}>
             <Paper style={styles.paper}>
-              {this.state.studentInfo.map(item => {
-                return (
-                  <div key={item.id}>
-                    Name: {item.Review.User.firstName}
-                    Email: {item.Review.User.email}
-                    <Button
-                      key={item.id}
-                      onClick={e => {
-                        this.acceptRequest(item.id, e);
-                      }}
-                    >
-                      Accept
-                    </Button>
-                    <Button>Reject</Button>
-                  </div>
-                );
-              })}
+              {this.state.studentInfo
+                .filter(({ is_approved_request }) => !is_approved_request)
+                .map(item => {
+                  return (
+                    <div key={item.id}>
+                      Name: {item.Review.User.firstName}
+                      Email: {item.Review.User.email}
+                      <Button
+                        key={item.id}
+                        onClick={e => {
+                          this.acceptRequest(item.id, e);
+                        }}
+                      >
+                        Accept
+                      </Button>
+                      <Button>Reject</Button>
+                    </div>
+                  );
+                })}
             </Paper>
           </Grid>
         </Grid>

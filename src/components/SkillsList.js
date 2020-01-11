@@ -11,31 +11,35 @@ class SkillsList extends Component {
   };
   async componentDidMount() {
     try {
-      const { data } = await axios.get(`http://localhost:3000/api/v1/skills`);
-      this.setState({ skillsList: data.rows }, () => {
-        console.log(this.state.skillsList);
-      });
+      const { data } = await axios.get(
+        `http://localhost:3000/api/v1/skills/all`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      );
+      this.setState({ skillsList: data.rows });
     } catch (e) {
       console.log(e);
     }
   }
-  chooseMentor = async skill_id => {};
   render() {
     return (
       <List style={styles.list}>
-        {this.state.skillsList
-          .filter(e => e.expert_id != localStorage.getItem("userId"))
-          .map(item => {
-            return (
-              <ListItem key={item.id}>
-                {item.Skill.name}
-                <FullScreenDialog skillId={item.id} />
-                {/* <Button key={item.id} onClick={this.chooseMentor(item.id)}>
-                Submit
-              </Button> */}
-              </ListItem>
-            );
-          })}
+        {this.state.skillsList.map(item => {
+          return (
+            <ListItem key={item.id}>
+              <div style={styles.container}>
+                <span style={{ marginRight: "10px" }}>{item.name}</span>
+                <FullScreenDialog
+                  skillId={item.id}
+                  addSkillToList={this.props.addSkillToList}
+                />
+              </div>
+            </ListItem>
+          );
+        })}
       </List>
     );
   }

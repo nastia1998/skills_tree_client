@@ -11,13 +11,38 @@ import SkillsPage from "./SkillsPage";
 import styles from "../styles/NavBar.css";
 
 class NavBar extends Component {
-  state = {
-    loggedIn: false
+  handleLogOut = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("loggedIn");
   };
-  render() {
-    const InOut = this.state.loggedIn ? "/register" : "/login";
+  renderLoggedIn = () => {
     return (
-      <AppBar position="static">
+      <AppBar position="static" style={styles.navbar}>
+        <Toolbar style={styles.navbar}>
+          <IconButton
+            edge="start"
+            style={styles.menuButton}
+            color="inherit"
+            aria-label="menu"
+          ></IconButton>
+          <Typography variant="h6" style={styles.title}>
+            Skills Tree
+          </Typography>
+          <Typography variant="h6" style={styles.menuButton}>
+            <Button href="/requests">Requests</Button>
+            <Button href="/" onClick={this.handleLogOut}>
+              Log out
+            </Button>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    );
+  };
+
+  renderLoggedOut = () => {
+    return (
+      <AppBar position="static" style={styles.navbar}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -29,21 +54,15 @@ class NavBar extends Component {
             Skills Tree
           </Typography>
           <Typography variant="h6" style={styles.menuButton}>
-            <NavLink to="/requests">Requests</NavLink>
+            {/* <NavLink to="/login">Log in</NavLink> */}
+            <Button href="/login">Log in</Button>
           </Typography>
-          {this.props.loggedIn ? (
-            <Typography variant="h6" style={styles.menuButton}>
-              <NavLink to={InOut}>Log in</NavLink>
-            </Typography>
-          ) : (
-            <Typography variant="h6" style={styles.menuButton}>
-              <NavLink to={InOut}>Log out</NavLink>
-            </Typography>
-          )}
-          {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
       </AppBar>
     );
+  };
+  render() {
+    return this.props.isLogin ? this.renderLoggedIn() : this.renderLoggedOut();
   }
 }
 

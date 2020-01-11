@@ -35,7 +35,8 @@ class RegisterPage extends Component {
     lastname: "",
     middlename: "",
     token: "",
-    error: false
+    error: false,
+    userId: ""
   };
 
   handleSubmit = async e => {
@@ -47,14 +48,29 @@ class RegisterPage extends Component {
       lastName: this.state.lastname,
       middleName: this.state.middlename
     };
-    console.log("body", body);
-
-    try {
-      await axios.post("http://localhost:3000/api/v1/users", body);
-
-      this.props.history.push("/login");
-    } catch (e) {
-      console.log(e);
+    if (!body.email || !body.password) {
+      alert("Email and password are required!");
+    } else if (this.state.password != this.state.confpassword) {
+      alert("Password and confirm password fields should match!");
+    } else {
+      try {
+        const { data } = await axios.post(
+          "http://localhost:3000/api/v1/users",
+          body
+        );
+        console.log(773, data);
+        // this.setState({ userId: data.id }, () => {
+        //   this.props.history.push(`/skills:${this.state.userId}`);
+        // });
+        localStorage.setItem("usId", data.userData.user.id);
+        this.props.history.push("/skills");
+      } catch (e) {
+        if (e.response.status == "400") {
+          alert(e.error);
+        }
+        this.setState({ error: true });
+        return e.message;
+      }
     }
   };
 
@@ -87,6 +103,9 @@ class RegisterPage extends Component {
   };
 
   render() {
+    if (this.state.error) {
+      return <h1>Something went wrong! {this.state.message}</h1>;
+    }
     return (
       <Container component="main" maxWidth="sm">
         <CssBaseline />

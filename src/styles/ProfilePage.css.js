@@ -43,5 +43,18 @@ export default {
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3)
+  },
+  card: {
+    minWidth: 275,
+    background:
+      "linear-gradient(90deg, rgba(180,179,205,1) 0%, rgba(214,186,199,0.08167016806722693) 42%, rgba(131,208,223,1) 80%)",
+    margin: "auto"
+  },
+  container: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row"
   }
 };

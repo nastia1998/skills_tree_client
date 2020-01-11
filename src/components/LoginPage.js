@@ -41,25 +41,29 @@ class LoginPage extends Component {
       email: this.state.email,
       password: this.state.password
     };
-
-    try {
-      const { data } = await axios.post(
-        "http://localhost:3000/api/v1/users/login",
-        body
-      );
-      console.log("token", data.token);
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("loggedIn", "loggedIn");
-        localStorage.setItem("userId", data.user.id);
-        console.log(4444, localStorage.getItem("userId"));
-        this.props.history.push("/profile");
-      } else {
-        this.setState({ error: true });
+    if (!body.email || !body.password) {
+      alert("Email and password are required!");
+    } else {
+      try {
+        const { data } = await axios.post(
+          "http://localhost:3000/api/v1/users/login",
+          body
+        );
+        console.log("token", data.token);
+        if (data.token) {
+          localStorage.setItem("loggedIn", "loggedIn");
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("userId", data.user.id);
+          console.log(this.props);
+          this.props.handleLogin();
+          this.props.history.push("/profile");
+        } else {
+          this.setState({ error: true });
+        }
+      } catch (e) {
+        console.log(e);
+        alert("Authorization failed. Check your input values!");
       }
-    } catch (e) {
-      console.log(e);
-      alert("Authorization failed. Check your input values!");
     }
   };
 

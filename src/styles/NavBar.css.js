@@ -11,5 +11,8 @@ export default {
   },
   title: {
     flexGrow: 1
+  },
+  navbar: {
+    backgroundColor: "#0097A7"
   }
 };

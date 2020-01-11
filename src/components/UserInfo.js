@@ -5,7 +5,10 @@ import {
   IconButton,
   Modal,
   Fade,
-  Backdrop
+  Backdrop,
+  Card,
+  CardContent,
+  CardActions
 } from "@material-ui/core";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Typography from "@material-ui/core/Typography";
@@ -26,13 +29,13 @@ class UserInfo extends Component {
     middleName: "",
     email: ""
   };
-  onImageChange = event => {
-    if (event.target.files && event.target.files[0]) {
-      this.setState({
-        image: URL.createObjectURL(event.target.files[0])
-      });
-    }
-  };
+  // onImageChange = event => {
+  //   if (event.target.files && event.target.files[0]) {
+  //     this.setState({
+  //       image: URL.createObjectURL(event.target.files[0])
+  //     });
+  //   }
+  // };
   handleOpen = () => {
     this.setState({
       modalInfo: true,
@@ -75,15 +78,18 @@ class UserInfo extends Component {
       lastname: this.state.lastName,
       middlename: this.state.middleName
     };
-    console.log("body", body);
 
     try {
       const { data } = await axios.post(
         `http://localhost:3000/api/v1/users/${localStorage.getItem("userId")}`,
-        body
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
       );
       this.handleClose();
-      //this.props.history.push("/profile");
     } catch (e) {
       console.log(e);
     }
@@ -93,7 +99,7 @@ class UserInfo extends Component {
     return (
       // <Paper style={styles.paper}>
       <Grid container spacing={2}>
-        <Grid item>
+        {/* <Grid item>
           <img style={styles.img} src={this.state.image} />
           <input
             accept="image/*"
@@ -111,37 +117,49 @@ class UserInfo extends Component {
               <PhotoCamera />
             </IconButton>
           </label>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
-              <Typography gutterBottom variant="subtitle1">
-                {this.state.firstName == ""
-                  ? this.props.firstName || "First name"
-                  : this.state.firstName}{" "}
-                {this.state.lastName == ""
-                  ? this.props.lastName || "Last name"
-                  : this.state.lastName}{" "}
-                {this.state.middleName == ""
-                  ? this.props.middleName || "Middle name"
-                  : this.state.middleName}{" "}
-                {this.state.email == ""
-                  ? this.props.email || "Email"
-                  : this.state.email}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
+              <Card style={styles.card}>
+                <CardContent>
+                  <Typography variant="h5" color="textSecondary">
+                    {this.state.firstName == ""
+                      ? this.props.firstName || "First name"
+                      : this.state.firstName}{" "}
+                    {this.state.lastName == ""
+                      ? this.props.lastName || "Last name"
+                      : this.state.lastName}{" "}
+                    {this.state.middleName == ""
+                      ? this.props.middleName || "Middle name"
+                      : this.state.middleName}{" "}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    {this.state.email == ""
+                      ? this.props.email || "Email"
+                      : this.state.email}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <IconButton color="primary" onClick={this.handleOpen}>
+                    <EditIcon />
+                  </IconButton>
+                </CardActions>
+              </Card>
+
+              {/* <Typography variant="body2" gutterBottom>
                 Full resolution 1920x1080 • JPEG
               </Typography>
               <Typography variant="body2" color="textSecondary">
                 ID: 1030114
-              </Typography>
+              </Typography> */}
             </Grid>
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <IconButton color="primary" onClick={this.handleOpen}>
               <EditIcon />
             </IconButton>
-          </Grid>
+          </Grid> */}
           <Modal
             open={this.state.modalInfo}
             onClose={this.handleClose}

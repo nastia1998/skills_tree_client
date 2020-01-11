@@ -9,19 +9,24 @@ class ExpertsList extends Component {
   state = {
     expertsList: []
   };
-  async componentDidMount() {
-    try {
-      const { data } = await axios.get(
-        `http://localhost:3000/api/v1/skills/${this.props.skillId}/experts`
-      );
+  // async componentDidMount() {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `http://localhost:3000/api/v1/skills/${this.props.skillId}/experts`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`
+  //         }
+  //       }
+  //     );
 
-      this.setState({ expertsList: data.rows }, () => {
-        console.log(this.state.expertsList);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  //     this.setState({ expertsList: data.rows }, () => {
+  //       console.log(this.state.expertsList);
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
   handleAddGoal = async (skillId, expert_id) => {
     //
     const user = { user_id: localStorage.getItem("userId") };
@@ -31,14 +36,24 @@ class ExpertsList extends Component {
     console.log(333, expert_id);
     //console.log(8787, event.target);
     const { data } = await axios.post(
-      `http://localhost:3000/api/v1/skills/${this.props.skillId}/experts/${expert_id}`,
-      user
+      `http://localhost:3000/api/v1/skills/${skillId}/experts/${expert_id}/goals`,
+      user,
+      //{ user_id: localStorage.getItem("userId") },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      }
     );
+
+    this.props.addSkillToList(data.createdGoal);
+    this.props.onClose();
+    console.log(775, data);
   };
   render() {
     return (
       <List>
-        {this.state.expertsList
+        {this.props.expertsList.rows
           .filter(e => e.User.id != localStorage.getItem("userId"))
           .map(item => {
             return (
